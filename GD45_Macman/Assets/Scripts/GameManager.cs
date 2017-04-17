@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     //This is a 2D array
     //0 = pill, 1 = wall, 2 = ghost, 3 = macman, 4 = teleport place
+    /*
     public int[,] grid = new int[,]
     {
         { 1, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -24,20 +25,21 @@ public class GameManager : MonoBehaviour
         { 1, 0, 1, 1, 0, 0, 0, 0, 1 },
         { 1, 1, 1, 1, 1, 1, 1, 1, 1 }
     };
-    /*
+    */
     public int[,] grid = new int[,]
     {
-        { 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+        { 1, 1, 1, 1, 4, 1, 1, 1, 1 },
         { 1, 0, 0, 0, 0, 1, 0, 0, 1 },
         { 1, 1, 3, 1, 0, 0, 0, 1, 1 },
-        { 4, 0, 0, 1, 1, 1, 0, 1, 4 },
+        { 1, 0, 0, 1, 1, 1, 0, 1, 1 },
         { 1, 1, 0, 1, 0, 0, 0, 0, 1 },
         { 1, 0, 0, 0, 0, 1, 1, 2, 1 },
         { 1, 0, 1, 1, 0, 0, 0, 0, 1 },
-        { 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+        { 1, 1, 1, 1, 4, 1, 1, 1, 1 }
     };
-    public Transform[] teleport;
-    */
+    /*
+    public Transform[] teleportLocation;
+
     /*
     zero = 26
     inner wall = 14
@@ -82,7 +84,7 @@ void Awake ()
                 /*
                 if (valueInGrid == 4)
                 {
-                    teleport[teleportCount] = objectClone.transform;
+                    teleportLocation[teleportCount] = objectClone.transform;
                     teleportCount++;
                 }
                 */
