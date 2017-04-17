@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
 
     //This is a 2D array
     //0 = pill, 1 = wall, 2 = ghost, 3 = macman, 4 = teleport place
-    /*
     public int[,] grid = new int[,]
     {
         { 1, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -25,7 +24,7 @@ public class GameManager : MonoBehaviour
         { 1, 0, 1, 1, 0, 0, 0, 0, 1 },
         { 1, 1, 1, 1, 1, 1, 1, 1, 1 }
     };
-    */
+    /*
     public int[,] grid = new int[,]
     {
         { 1, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -38,6 +37,7 @@ public class GameManager : MonoBehaviour
         { 1, 1, 1, 1, 1, 1, 1, 1, 1 }
     };
     public Transform[] teleport;
+    */
     /*
     zero = 26
     inner wall = 14
@@ -66,8 +66,9 @@ void Awake ()
     {
         int gridSizeX = grid.GetLength(0);
         int gridSizeY = grid.GetLength(1);
-
+        /*
         int teleportCount = 0;
+        */
         //for (startvalue of variable 'i'; condition to stay in loop; operation done to variable 'i' every loop
         for (int i = 0; i < gridSizeX; i++)
         {
@@ -78,11 +79,13 @@ void Awake ()
                 int valueInGrid = grid[i, j];
                 //We use valueInGrid as an index, to get the BaseObject, corresponding to the value in the grid
                 BaseObject objectClone = Instantiate(objectPrefabs[valueInGrid]);
+                /*
                 if (valueInGrid == 4)
                 {
                     teleport[teleportCount] = objectClone.transform;
                     teleportCount++;
                 }
+                */
                 //We set the grid object to the right position based on where it is in the grid
                 objectClone.transform.localPosition = new Vector3(i, 0, j);
                 //We set the posInGrid of our object, so our Units don't get moved to 0,0
