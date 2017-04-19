@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BaseUnit : BaseObject {
 
+    public const int COLUMN_COUNT = 9;
+    public const int ROW_COUNT = 8;
+
     public float speed;
 
     protected IntVector2 direction;
@@ -12,26 +15,33 @@ public class BaseUnit : BaseObject {
 
     private Vector3 posInWorld;
     private Vector3 nextPosInWorld;
+    public Macman macMan;
 
     protected float moveTimer = Mathf.Infinity;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         //We assign nextPosInGrid, because when moveTimer >=1, the posInGrid gets set to that
         nextPosInGrid = posInGrid;
 	}
 	
     protected void Move ()
     {
+        bool bTeleport = false;
         if (moveTimer >= 1f)
         {
-            posInGrid = nextPosInGrid;
             //We calculate the next position, based on the current position and direction
             nextPosInGrid = posInGrid + direction;
-
+            //Debug.Log("posInGrid.x=" + posInGrid.x + "  posInGrid.y=" + posInGrid.y + "  nextPosInGrid.x=" + nextPosInGrid.x + "  nextPosInGrid.y=" + nextPosInGrid.y);
             if (GameManager.instance.grid[nextPosInGrid.x, nextPosInGrid.y] == 1)
             {
                 nextPosInGrid = posInGrid;
+            }
+            else if (GameManager.instance.grid[nextPosInGrid.x, nextPosInGrid.y] == 4)
+            {
+                nextPosInGrid = myTwinPosInGrid(nextPosInGrid);
+                bTeleport = true;
             }
 
             //We convert the IntVector2, to a Vector3 to place our object in 3D space
@@ -42,6 +52,30 @@ public class BaseUnit : BaseObject {
         }
         //We increment the moveTimer by the duration of the last frame
         moveTimer += Time.deltaTime * speed;
-        transform.localPosition = Vector3.Lerp(posInWorld, nextPosInWorld, moveTimer);
+        if (bTeleport)
+        {
+            bTeleport = false;
+            Vector3 vStep1 = new Vector3(posInWorld.x, posInWorld.y - 1000, posInWorld.z);
+            Vector3 vStep2 = new Vector3(nextPosInWorld.x, -1000, nextPosInWorld.y);
+            Vector3 vStep3 = new Vector3(nextPosInWorld.x, 0, nextPosInWorld.y);
+            transform.localPosition = vStep1;
+            transform.localPosition = vStep2;
+            transform.localPosition = vStep3;
+            //Debug.Log("transform.position.x=" + transform.position.x + "  transform.position.y=" + transform.position.y + "  transform.position.z=" + transform.position.z);
+        }
+        else
+        {
+            transform.localPosition = Vector3.Lerp(posInWorld, nextPosInWorld, moveTimer);
+        }
+        posInGrid = nextPosInGrid;
+    }
+
+    public IntVector2 myTwinPosInGrid(IntVector2 inpPos)
+    {
+        IntVector2 iv2Ret;
+        iv2Ret.x = ROW_COUNT - inpPos.x-1;
+        //Debug.Log("iv2Ret.x=" + iv2Ret.x);
+        iv2Ret.y =inpPos.y;
+        return iv2Ret;
     }
 }

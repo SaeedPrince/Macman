@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour
         { 1, 0, 1, 1, 0, 0, 0, 0, 1 },
         { 1, 1, 1, 1, 4, 1, 1, 1, 1 }
     };
-    /*
-    public Transform[] teleportLocation;
+    
+    public Vector3[] teleportLocation;
 
     /*
     zero = 26
@@ -51,12 +51,6 @@ public class GameManager : MonoBehaviour
     public const int ROW_COUNT = 8;
     public const int COLUMN_COUNT = 9;
     public const int PILL_COUNT = 26;
-    public int[,] randomGrid()
-    {
-        int[,] returnGrid = new int[ROW_COUNT, COLUMN_COUNT];
-
-        return returnGrid;
-    }
 
 void Awake ()
     {
@@ -68,9 +62,6 @@ void Awake ()
     {
         int gridSizeX = grid.GetLength(0);
         int gridSizeY = grid.GetLength(1);
-        /*
-        int teleportCount = 0;
-        */
         //for (startvalue of variable 'i'; condition to stay in loop; operation done to variable 'i' every loop
         for (int i = 0; i < gridSizeX; i++)
         {
@@ -81,13 +72,6 @@ void Awake ()
                 int valueInGrid = grid[i, j];
                 //We use valueInGrid as an index, to get the BaseObject, corresponding to the value in the grid
                 BaseObject objectClone = Instantiate(objectPrefabs[valueInGrid]);
-                /*
-                if (valueInGrid == 4)
-                {
-                    teleportLocation[teleportCount] = objectClone.transform;
-                    teleportCount++;
-                }
-                */
                 //We set the grid object to the right position based on where it is in the grid
                 objectClone.transform.localPosition = new Vector3(i, 0, j);
                 //We set the posInGrid of our object, so our Units don't get moved to 0,0

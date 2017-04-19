@@ -36,16 +36,6 @@ public class Macman : BaseUnit
             effect.transform.position = otherCollider.transform.position;
         }
 
-        // Added by me start
-        /*
-        else if (otherCollider.GetComponent<Teleport>() != null)
-        {
-            GameObject effect = PoolManager.instance.Spawn("GoTeleportEffect");  // need to be build later
-            effect.transform.position = otherCollider.transform.position;
-            //if 
-        }
-        */
     }
 
-        //Added by me end
 }

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Teleport : BaseObject
 {
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
