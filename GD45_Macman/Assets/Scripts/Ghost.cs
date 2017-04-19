@@ -57,4 +57,17 @@ public class Ghost : BaseUnit {
         }
         Move();
     }
+    // Added by me start
+    void OnTriggerEnter(Collider otherCollider)
+    {
+        if (otherCollider.GetComponent<Macman>() != null && !GameManager.instance.bPowerup)
+        {
+            Destroy(otherCollider.gameObject);
+            GameObject effect = PoolManager.instance.Spawn("EatPillEffect");
+            effect.transform.position = otherCollider.transform.position;
+        }
+
+    }
+    // Added by me end
+
 }

@@ -35,7 +35,24 @@ public class Macman : BaseUnit
             GameObject effect = PoolManager.instance.Spawn("EatPillEffect");
             effect.transform.position = otherCollider.transform.position;
         }
-
+        // Added by me start
+        else if (otherCollider.GetComponent<PowerUp>() != null)
+        {
+            Destroy(otherCollider.gameObject);
+            GameObject effect = PoolManager.instance.Spawn("EatPillEffect");
+            effect.transform.position = otherCollider.transform.position;
+            GameManager.instance.bPowerup = true;
+            GameManager.instance.PowerupTimer = 5;
+        }
+        if (otherCollider.GetComponent<Ghost>() != null)
+        {
+            if (GameManager.instance.bPowerup)
+            {
+                Destroy(otherCollider.gameObject);
+                GameObject effect = PoolManager.instance.Spawn("EatPillEffect");
+                effect.transform.position = otherCollider.transform.position;
+            }
+        }
+        // Added by me end
     }
-
 }

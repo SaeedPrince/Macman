@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     //public int[][] jaggedGrid;
 
     //This is a 2D array
-    //0 = pill, 1 = wall, 2 = ghost, 3 = macman, 4 = teleport place
+    //0 = pill, 1 = wall, 2 = ghost, 3 = macman, 4 = teleport place, 5 = powerup
     /*
     public int[,] grid = new int[,]
     {
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
         { 1, 1, 1, 1, 4, 1, 1, 1, 1 },
         { 1, 0, 0, 0, 0, 1, 0, 0, 1 },
-        { 1, 1, 3, 1, 0, 0, 0, 1, 1 },
+        { 1, 1, 3, 1, 0, 5, 0, 1, 1 },
         { 1, 0, 0, 1, 1, 1, 0, 1, 1 },
         { 1, 1, 0, 1, 0, 0, 0, 0, 1 },
         { 1, 0, 0, 0, 0, 1, 1, 2, 1 },
@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
         { 1, 1, 1, 1, 4, 1, 1, 1, 1 }
     };
     
-    public Vector3[] teleportLocation;
 
     /*
     zero = 26
@@ -51,6 +50,9 @@ public class GameManager : MonoBehaviour
     public const int ROW_COUNT = 8;
     public const int COLUMN_COUNT = 9;
     public const int PILL_COUNT = 26;
+    public bool bPowerup = false;
+    public float PowerupTimer = 0;
+
 
 void Awake ()
     {
@@ -83,6 +85,13 @@ void Awake ()
     // Update is called once per frame
     void Update()
     {
-
+        if (PowerupTimer>0)
+        {
+            PowerupTimer -= Time.deltaTime;
+        }
+        else
+        {
+            bPowerup = false;
+        }
     }
 }
