@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class Macman : BaseUnit
 {
-	
-	// Update is called once per frame
-	void Update ()
+    public Material MacmanNormalMaterial;
+    public Material MacmanPowerupMaterial;
+
+    // Update is called once per frame
+    void Update ()
     {
-		if (Input.GetKey(KeyCode.LeftArrow))
+        // Change Color when powerup
+        MeshRenderer gameObjectRenderer = gameObject.GetComponent<MeshRenderer>();
+        if (GameManager.instance.bPowerup)
+        {
+            gameObjectRenderer.material = MacmanPowerupMaterial;
+        }
+        else
+        {
+            gameObjectRenderer.material = MacmanNormalMaterial;
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             direction = new IntVector2(-1, 0);
         }
@@ -36,6 +49,7 @@ public class Macman : BaseUnit
             effect.transform.position = otherCollider.transform.position;
         }
         // Added by me start
+        // macman can get powerup
         else if (otherCollider.GetComponent<PowerUp>() != null)
         {
             Destroy(otherCollider.gameObject);
@@ -44,6 +58,7 @@ public class Macman : BaseUnit
             GameManager.instance.bPowerup = true;
             GameManager.instance.PowerupTimer = 5;
         }
+        // when macman powersup can eat ghosts
         if (otherCollider.GetComponent<Ghost>() != null)
         {
             if (GameManager.instance.bPowerup)

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class BaseUnit : BaseObject {
 
-    public const int COLUMN_COUNT = 9;
-    public const int ROW_COUNT = 8;
+    // Assigning numbers as constants to clarify
+    public const int COLUMN_COUNT = 18;
+    public const int ROW_COUNT = 16;
 
     public float speed;
 
@@ -33,7 +34,6 @@ public class BaseUnit : BaseObject {
         {
             //We calculate the next position, based on the current position and direction
             nextPosInGrid = posInGrid + direction;
-            //Debug.Log("posInGrid.x=" + posInGrid.x + "  posInGrid.y=" + posInGrid.y + "  nextPosInGrid.x=" + nextPosInGrid.x + "  nextPosInGrid.y=" + nextPosInGrid.y);
             if (GameManager.instance.grid[nextPosInGrid.x, nextPosInGrid.y] == 1)
             {
                 nextPosInGrid = posInGrid;
@@ -55,13 +55,13 @@ public class BaseUnit : BaseObject {
         if (bTeleport)
         {
             bTeleport = false;
+            // teleporting in 3 steps to avoid passing from center of the scene
             Vector3 vStep1 = new Vector3(posInWorld.x, posInWorld.y - 1000, posInWorld.z);
             Vector3 vStep2 = new Vector3(nextPosInWorld.x, -1000, nextPosInWorld.y);
             Vector3 vStep3 = new Vector3(nextPosInWorld.x, 0, nextPosInWorld.y);
             transform.localPosition = vStep1;
             transform.localPosition = vStep2;
             transform.localPosition = vStep3;
-            //Debug.Log("transform.position.x=" + transform.position.x + "  transform.position.y=" + transform.position.y + "  transform.position.z=" + transform.position.z);
         }
         else
         {
@@ -73,9 +73,8 @@ public class BaseUnit : BaseObject {
     public IntVector2 myTwinPosInGrid(IntVector2 inpPos)
     {
         IntVector2 iv2Ret;
-        iv2Ret.x = ROW_COUNT - inpPos.x-1;
-        //Debug.Log("iv2Ret.x=" + iv2Ret.x);
-        iv2Ret.y =inpPos.y;
+        iv2Ret.x = ROW_COUNT - inpPos.x - 1;
+        iv2Ret.y = COLUMN_COUNT - inpPos.y - 1;
         return iv2Ret;
     }
 }

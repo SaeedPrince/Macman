@@ -29,13 +29,8 @@ public class Ghost : BaseUnit {
                 //If dir is not the opposite of my current direction (it shouldn't go from forward to backward)
                 //E.g. if direction = 0,1 and dir = 0,-1
                 // if 0 == (-0) && 1 == -(-1), don't add it to options
-                /*
-                if (adjacentObjInGrid != 1 && !(dir.x == -direction.x && dir.y == -direction.y))
-                {
-                    //Add this to my options
-                    options.Add(dir);
-                }
-                */
+                
+                // Ghosts can't go to wall or teleport
                 if (adjacentObjInGrid != 1 && adjacentObjInGrid != 4 && !(dir.x == -direction.x && dir.y == -direction.y))
                 {
                     //Add this to my options
@@ -58,6 +53,7 @@ public class Ghost : BaseUnit {
         Move();
     }
     // Added by me start
+    // If ghost eats macman destroys it
     void OnTriggerEnter(Collider otherCollider)
     {
         if (otherCollider.GetComponent<Macman>() != null && !GameManager.instance.bPowerup)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public const int ROW_COUNT = 16;
+    public const int COLUMN_COUNT = 18;
     public static GameManager instance;
 
     public BaseObject[] objectPrefabs;
@@ -13,43 +15,27 @@ public class GameManager : MonoBehaviour
 
     //This is a 2D array
     //0 = pill, 1 = wall, 2 = ghost, 3 = macman, 4 = teleport place, 5 = powerup
-    /*
-    public int[,] grid = new int[,]
-    {
-        { 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-        { 1, 0, 0, 0, 0, 1, 0, 0, 1 },
-        { 1, 1, 3, 1, 0, 0, 0, 1, 1 },
-        { 1, 0, 0, 1, 1, 1, 0, 1, 1 },
-        { 1, 1, 0, 1, 0, 0, 0, 0, 1 },
-        { 1, 0, 0, 0, 0, 1, 1, 2, 1 },
-        { 1, 0, 1, 1, 0, 0, 0, 0, 1 },
-        { 1, 1, 1, 1, 1, 1, 1, 1, 1 }
-    };
-    */
-    public int[,] grid = new int[,]
-    {
-        { 1, 1, 1, 1, 4, 1, 1, 1, 1 },
-        { 1, 0, 0, 0, 0, 1, 0, 0, 1 },
-        { 1, 1, 3, 1, 0, 5, 0, 1, 1 },
-        { 1, 0, 0, 1, 1, 1, 0, 1, 1 },
-        { 1, 1, 0, 1, 0, 0, 0, 0, 1 },
-        { 1, 0, 0, 0, 0, 1, 1, 2, 1 },
-        { 1, 0, 1, 1, 0, 0, 0, 0, 1 },
-        { 1, 1, 1, 1, 4, 1, 1, 1, 1 }
-    };
-    
 
-    /*
-    zero = 26
-    inner wall = 14
-    outer wall = 30
-    ghost = 1
-    macman = 1
-    sum = 72
-    */
-    public const int ROW_COUNT = 8;
-    public const int COLUMN_COUNT = 9;
-    public const int PILL_COUNT = 26;
+    public int[,] grid = new int[,]
+    {
+        { 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        { 1, 1, 3, 1, 5, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1},
+        { 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+        { 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1},
+        { 1, 0, 0, 0, 0, 1, 1, 1, 2, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+        { 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1},
+        { 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        { 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 2, 1},
+        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+        { 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1},
+        { 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 5, 0, 0, 1},
+        { 1, 0, 1, 0, 1, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+        { 1, 0, 1, 0, 1, 5, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1},
+        { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1},
+    };
+
     public bool bPowerup = false;
     public float PowerupTimer = 0;
 
@@ -83,6 +69,7 @@ void Awake ()
     }
 
     // Update is called once per frame
+    // Powerup expires after 5 seconds
     void Update()
     {
         if (PowerupTimer>0)
